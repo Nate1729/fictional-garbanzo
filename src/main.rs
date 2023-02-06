@@ -5,7 +5,6 @@ use sqlx::{sqlite::Sqlite, Pool, SqlitePool};
 
 // Local imports
 mod author;
-mod author_handlers;
 
 pub struct AppState {
     sql_client: Pool<Sqlite>,
