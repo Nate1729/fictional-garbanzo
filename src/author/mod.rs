@@ -2,8 +2,8 @@
 use actix_web::web;
 
 pub mod handlers;
-pub mod helpers;
 pub mod models;
+pub mod queries;
 
 pub fn author_config(cfg: &mut web::ServiceConfig) {
     cfg.service(
