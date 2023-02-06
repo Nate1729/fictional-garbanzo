@@ -1,14 +1,14 @@
 // 3rd Party Imports
 use actix_web::web;
 
-pub mod endpoints;
+pub mod handlers;
 pub mod helpers;
 pub mod models;
 
 pub fn author_config(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::scope("/author")
-            .service(endpoints::get_author_list)
-            .service(endpoints::post_author_create),
+            .service(web::resource("list").route(web::get().to(handlers::get_authors)))
+            .service(web::resource("create").route(web::post().to(handlers::create_author))),
     );
 }
