@@ -17,11 +17,11 @@ jobs:
   clippy:
     env: 
       DATABASE_URL: ${{secrets.DATABASE_URL}}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - run: rustup update stable && rustup default stable
-      - run: cargo add sqlx-cli
-      - run: sqlx database create
-      - run: sqlx migrate run
-      - run: cargo clippy --no-deps
+    runs-on: ubuntu-latest 
+    uses: actions/checkout@v1
+    script: |
+      rustup update stable && rustup default stable
+      cargo add sqlx-cli
+      sqlx database create
+      sqlx migrate run
+      cargo clippy --no-deps
