@@ -5,6 +5,7 @@ use sqlx::{sqlite::Sqlite, Pool, SqlitePool};
 
 // Local imports
 mod author;
+mod book;
 
 pub struct AppState {
     sql_client: Pool<Sqlite>,
@@ -24,6 +25,7 @@ async fn main() -> std::io::Result<()> {
                 sql_client: pool.clone(),
             }))
             .configure(author::author_config)
+            .configure(book::book_config)
     })
     .bind(("127.0.0.1", 8080))?
     .run()
