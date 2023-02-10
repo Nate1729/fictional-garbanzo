@@ -16,7 +16,7 @@ impl Book {
             title: create_book_body.title.clone(),
             year_published: create_book_body.year_published.clone(),
             author_id: create_book_body.author_id,
-            rented_to: create_book_body.rented_to.clone()
+            rented_to: create_book_body.rented_to.clone(),
         }
     }
 }
@@ -28,4 +28,3 @@ pub struct CreateBookBody {
     pub author_id: i64,
     pub rented_to: Option<String>,
 }
-

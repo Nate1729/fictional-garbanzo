@@ -6,8 +6,7 @@ use crate::AppState;
 pub async fn create_book(
     body: web::Json<models::CreateBookBody>,
     state: web::Data<AppState>,
-    ) -> HttpResponse {
-
+) -> HttpResponse {
     match queries::book_create(&state.sql_client, &body).await {
         Ok(id) => HttpResponse::Created().json(models::Book::from_create_book_body(body, id)),
         Err(_) => HttpResponse::InternalServerError().body("Book could not be created!"),
