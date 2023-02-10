@@ -21,3 +21,10 @@ pub async fn book_create(
 
     Ok(id)
 }
+
+pub async fn book_list(pool: &Pool<Sqlite>) -> sqlx::Result<Vec<models::Book>> {
+    let mut conn = pool.acquire().await?;
+    sqlx::query_as!(models::Book, "SELECT * FROM book")
+        .fetch_all(&mut conn)
+        .await
+}

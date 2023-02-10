@@ -2,11 +2,11 @@ use actix_web::web;
 
 #[derive(serde::Serialize)]
 pub struct Book {
-    id: i64,
-    title: String,
-    year_published: String,
-    author_id: u32,
-    rented_to: Option<String>,
+    pub id: i64,
+    pub title: String,
+    pub year_published: String,
+    pub author_id: i64,
+    pub rented_to: Option<String>,
 }
 
 impl Book {
@@ -25,7 +25,7 @@ impl Book {
 pub struct CreateBookBody {
     pub title: String,
     pub year_published: String,
-    pub author_id: u32,
+    pub author_id: i64,
     pub rented_to: Option<String>,
 }
 

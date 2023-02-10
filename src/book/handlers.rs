@@ -13,3 +13,12 @@ pub async fn create_book(
         Err(_) => HttpResponse::InternalServerError().body("Book could not be created!"),
     }
 }
+
+pub async fn list_books(state: web::Data<AppState>) -> web::Json<Vec<models::Book>> {
+    let books = match queries::book_list(&state.sql_client).await {
+        Ok(b) => b,
+        Err(e) => panic!("Error querying for books, Error: {}", e),
+    };
+
+    web::Json(books)
+}
