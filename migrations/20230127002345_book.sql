@@ -1,7 +1,8 @@
 -- Add migration script here
 CREATE TABLE IF NOT EXISTS author (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT
+  first_name TEXT NOT NULL,
+  last_name TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS book (
@@ -12,5 +13,3 @@ CREATE TABLE IF NOT EXISTS book (
   rented_to TEXT,
   FOREIGN KEY(author_id) REFERENCES author(id)
 );
-
-INSERT INTO author (name) VALUES ("John Doe");
