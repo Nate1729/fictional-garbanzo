@@ -1,12 +1,14 @@
 #[derive(serde::Serialize)]
 pub struct Author {
     pub id: i64,
-    pub name: Option<String>,
+    pub first_name: String,
+    pub last_name: String,
 }
 
 #[derive(serde::Deserialize)]
 pub struct CreateAuthorBody {
-    pub name: String,
+    pub first_name: String,
+    pub last_name: String,
 }
 
 #[derive(serde::Serialize)]

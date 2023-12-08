@@ -11,12 +11,20 @@ pub async fn author_list(pool: &Pool<Sqlite>) -> sqlx::Result<Vec<models::Author
         .await
 }
 
-pub async fn author_create(pool: &Pool<Sqlite>, name: &String) -> sqlx::Result<i64> {
+pub async fn author_create(
+    pool: &Pool<Sqlite>,
+    first_name: &str,
+    last_name: &str,
+) -> sqlx::Result<i64> {
     let mut conn = pool.acquire().await?;
-    let id = sqlx::query!(r#"INSERT INTO author (name) VALUES ( ?1 )"#, name)
-        .execute(&mut conn)
-        .await?
-        .last_insert_rowid();
+    let id = sqlx::query!(
+        r#"INSERT INTO author (first_name, last_name) VALUES ( ?1, ?2 )"#,
+        first_name,
+        last_name
+    )
+    .execute(&mut conn)
+    .await?
+    .last_insert_rowid();
 
     Ok(id)
 }
