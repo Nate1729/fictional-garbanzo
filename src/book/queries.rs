@@ -23,8 +23,5 @@ pub async fn book_list(pool: &PgPool) -> sqlx::Result<Vec<models::Book>> {
     let raw = sqlx::query("SELECT id, title, year_published, author_id FROM book")
         .fetch_all(pool)
         .await?;
-    Ok(raw
-        .iter()
-        .map(|row| models::Book::from_pg_row(row))
-        .collect())
+    Ok(raw.iter().map(models::Book::from_pg_row).collect())
 }
