@@ -7,8 +7,8 @@ pub mod queries;
 
 pub fn author_config(cfg: &mut web::ServiceConfig) {
     cfg.service(
-        web::scope("/authors")
-            .service(web::resource("").route(web::get().to(handlers::get_authors)))
-            .service(web::resource("create").route(web::post().to(handlers::create_author))),
+        web::resource("/author")
+            .route(web::get().to(handlers::get_authors))
+            .route(web::post().to(handlers::create_author)),
     );
 }

@@ -7,8 +7,8 @@ pub mod queries;
 
 pub fn book_config(cfg: &mut web::ServiceConfig) {
     cfg.service(
-        web::scope("/book")
-            .service(web::resource("create").route(web::post().to(handlers::create_book)))
-            .service(web::resource("list").route(web::get().to(handlers::list_books))),
+        web::resource("/book")
+            .route(web::get().to(handlers::get_book))
+            .route(web::post().to(handlers::create_book)),
     );
 }
