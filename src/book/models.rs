@@ -1,4 +1,5 @@
 use actix_web::web;
+use sqlx::{postgres::PgRow, Row};
 
 #[derive(serde::Serialize)]
 pub struct Book {
@@ -6,7 +7,6 @@ pub struct Book {
     pub title: String,
     pub year_published: String,
     pub author_id: i64,
-    pub rented_to: Option<String>,
 }
 
 impl Book {
@@ -16,7 +16,15 @@ impl Book {
             title: create_book_body.title.clone(),
             year_published: create_book_body.year_published.clone(),
             author_id: create_book_body.author_id,
-            rented_to: create_book_body.rented_to.clone(),
+        }
+    }
+
+    pub fn from_pg_row(row: &PgRow) -> Self {
+        Self {
+            id: row.get("id"),
+            title: row.get("title"),
+            year_published: row.get("year_published"),
+            author_id: row.get("author_id"),
         }
     }
 }
@@ -26,5 +34,4 @@ pub struct CreateBookBody {
     pub title: String,
     pub year_published: String,
     pub author_id: i64,
-    pub rented_to: Option<String>,
 }

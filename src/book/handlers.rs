@@ -8,7 +8,7 @@ pub async fn create_book(
     state: web::Data<AppState>,
 ) -> HttpResponse {
     match queries::book_create(&state.sql_client, &body).await {
-        Ok(id) => HttpResponse::Created().json(models::Book::from_create_book_body(body, id)),
+        Ok((id,)) => HttpResponse::Created().json(models::Book::from_create_book_body(body, id)),
         Err(_) => HttpResponse::InternalServerError().body("Book could not be created!"),
     }
 }

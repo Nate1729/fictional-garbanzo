@@ -1,14 +1,15 @@
 // 3rd Party imports
 use actix_web::{web, App, HttpServer};
 use dotenv::dotenv;
-use sqlx::{sqlite::Sqlite, Pool, SqlitePool};
+use sqlx::postgres::Postgres;
+use sqlx::Pool;
 
-// Local imports
+// Local importss
 mod author;
 mod book;
 
 pub struct AppState {
-    sql_client: Pool<Sqlite>,
+    sql_client: Pool<Postgres>,
 }
 
 #[actix_web::main]
@@ -17,7 +18,7 @@ async fn main() -> std::io::Result<()> {
     //env_logger::init();
     dotenv().ok();
     let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-    let pool = SqlitePool::connect(&database_url).await.unwrap();
+    let pool = Pool::<Postgres>::connect(&database_url).await.unwrap();
 
     HttpServer::new(move || {
         App::new()
