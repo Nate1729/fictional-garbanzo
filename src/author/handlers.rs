@@ -8,7 +8,7 @@ pub async fn create_author(
     state: web::Data<AppState>,
 ) -> HttpResponse {
     match queries::author_create(&state.sql_client, &body.first_name, &body.last_name).await {
-        Ok(id) => HttpResponse::Created().json(models::AuthorCreateResponse::new(id)),
+        Ok((id,)) => HttpResponse::Created().json(models::AuthorCreateResponse::new(id)),
         Err(_) => HttpResponse::InternalServerError().body("Author not created!"),
     }
 }
