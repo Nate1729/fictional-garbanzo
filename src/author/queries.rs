@@ -5,9 +5,10 @@ use sqlx::PgPool;
 use super::models;
 
 pub async fn author_list(pool: &PgPool) -> sqlx::Result<Vec<models::Author>> {
-    sqlx::query_as!(models::Author, r"SELECT * FROM author")
+    let raw = sqlx::query(r"SELECT id, first_name, last_name FROM author")
         .fetch_all(pool)
-        .await
+        .await?;
+    Ok(raw.iter().map(models::Author::from_pg_row).collect())
 }
 
 pub async fn author_create(
